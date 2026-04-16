@@ -16,66 +16,73 @@ const texts = [
   "NO is not an option anymore 😌",
 ];
 
-noBtn.addEventListener("mouseover", () => {
+function randomSignedOffset() {
+  const magnitude = 50 + Math.random() * 80;
+  return (Math.random() > 0.5 ? 1 : -1) * magnitude;
+}
+
+function clampNoButtonTranslate(x, y, noScale) {
+  const margin = 8;
+  const vw = document.documentElement.clientWidth;
+  const vh = document.documentElement.clientHeight;
+
+  for (let i = 0; i < 8; i++) {
+    noBtn.style.transform = `translate(${x}px, ${y}px) scale(${noScale})`;
+    const r = noBtn.getBoundingClientRect();
+    let nx = x;
+    let ny = y;
+
+    if (r.left < margin) nx += margin - r.left;
+    if (r.right > vw - margin) nx -= r.right - (vw - margin);
+    if (r.top < margin) ny += margin - r.top;
+    if (r.bottom > vh - margin) ny -= r.bottom - (vh - margin);
+
+    if (nx === x && ny === y) break;
+    x = nx;
+    y = ny;
+  }
+
+  noBtn.style.transform = `translate(${x}px, ${y}px) scale(${noScale})`;
+}
+
+function onNoEvade() {
+  if (noBtn.style.display === "none") return;
+
   attempts++;
 
-  // Update text
   question.textContent = texts[Math.min(attempts - 1, texts.length - 1)];
 
-  // Move button randomly and scale it (avoid overlapping YES button, constrained for mobile)
-  const x =
-    Math.random() > 0.5 ? Math.random() * 80 + 50 : -(Math.random() * 80 + 50);
-  const y =
-    Math.random() > 0.5 ? Math.random() * 80 + 50 : -(Math.random() * 80 + 50);
+  let x = randomSignedOffset();
+  let y = randomSignedOffset();
   const noScale = Math.max(0.3, 1 - attempts * 0.15);
-  noBtn.style.transform = `translate(${x}px, ${y}px) scale(${noScale})`;
+  clampNoButtonTranslate(x, y, noScale);
 
-  // Grow YES and ensure it stays on top
   const yesScale = 1 + attempts * 0.15;
   yesBtn.style.transform = `scale(${yesScale})`;
   yesBtn.style.zIndex = "10";
 
-  // make NO disappear
   if (attempts >= texts.length) {
     noBtn.style.display = "none";
     noBtn.style.pointerEvents = "none";
     question.textContent = "Okay okay 😌 Just press YES ❤️";
   }
+}
+
+noBtn.addEventListener("pointerenter", (e) => {
+  if (e.pointerType !== "mouse") return;
+  onNoEvade();
+});
+
+noBtn.addEventListener("pointerdown", (e) => {
+  if (e.pointerType === "mouse") return;
+  onNoEvade();
 });
 
 yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
-    <h1>Yayyyy 🥰💖</h1>
-    <p>You are officially my Valentine 😍</p>
+    <div class="success-screen">
+      <h1>Yayyyy 🥰💖</h1>
+      <p>You are officially my Valentine 😍</p>
+    </div>
   `;
-});
-
-console.log(texts.length);
-
-// for mobile devices where hover is not possible
-noBtn.addEventListener("touchstart", () => {
-  attempts++;
-
-  // Update text
-  question.textContent = texts[Math.min(attempts - 1, texts.length - 1)];
-
-  // Move button randomly and scale it (avoid overlapping YES button, constrained for mobile)
-  const x =
-    Math.random() > 0.5 ? Math.random() * 80 + 50 : -(Math.random() * 80 + 50);
-  const y =
-    Math.random() > 0.5 ? Math.random() * 80 + 50 : -(Math.random() * 80 + 50);
-  const noScale = Math.max(0.3, 1 - attempts * 0.15);
-  noBtn.style.transform = `translate(${x}px, ${y}px) scale(${noScale})`;
-
-  // Grow YES and ensure it stays on top
-  const yesScale = 1 + attempts * 0.15;
-  yesBtn.style.transform = `scale(${yesScale})`;
-  yesBtn.style.zIndex = "10";
-
-  // Optional: make NO disappear
-  if (attempts >= texts.length) {
-    noBtn.style.display = "none";
-    noBtn.style.pointerEvents = "none";
-    question.textContent = "Okay okay 😌 Just press YES ❤️";
-  }
 });
