@@ -82,7 +82,7 @@ yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
     <div class="success-screen">
       <h1>Yayyyy 🥰💖</h1>
-      <p>You are officially my Valentine 😍</p>
+      <p>We are officially going on a date, lets finalise a place and time as per you convenience 😍</p>
     </div>
   `;
 });
