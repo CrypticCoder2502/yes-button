@@ -59,7 +59,8 @@ function onNoEvade() {
 
   const yesScale = 1 + attempts * 0.15;
   yesBtn.style.transform = `scale(${yesScale})`;
-  yesBtn.style.zIndex = "10";
+  yesBtn.style.zIndex = "1";
+  noBtn.style.zIndex = "10";
 
   if (attempts >= texts.length) {
     noBtn.style.display = "none";

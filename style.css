@@ -32,6 +32,8 @@ body {
 }
 
 #question {
+  position: relative;
+  z-index: 20;
   padding: 12px 0 20px;
   margin: 0;
   font-size: clamp(1.25rem, 4.5vw, 1.75rem);
@@ -65,11 +67,14 @@ button {
 #yesBtn {
   background: #e01947;
   color: #fff;
+  position: relative;
+  z-index: 1;
 }
 
 #noBtn {
   background: #e0e0e0;
   position: relative;
+  z-index: 10;
 }
 
 @media (max-width: 480px) {
