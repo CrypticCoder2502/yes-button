@@ -42,8 +42,13 @@ function clampNoButtonTranslate(x, y, noScale) {
     y = ny;
   }
 
-  noBtn.style.transform = `translate(${x}px, ${y}px) scale(${noScale})`;
-}
+yesBtn.addEventListener("click", () => {
+  document.body.innerHTML = `
+    <h1>Yayyyy, Hsuu 💖</h1>
+     <p>We are officially going on Burmese lunch date! 😍</p>
+     <img src="siuu.gif" alt="" class="success-screen__gif" decoding="async" />
+  `;
+});
 
 function onNoEvade() {
   if (noBtn.style.display === "none") return;
