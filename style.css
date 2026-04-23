@@ -2,17 +2,23 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   font-family: sans-serif;
   background: white;
   margin: 0;
-  padding: 40px;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
 
 .main {
@@ -21,33 +27,102 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  width: 100%;
+  max-width: min(100%, 28rem);
 }
 
 #question {
-  padding: 20px;
+  position: relative;
+  z-index: 20;
+  padding: 12px 0 20px;
+  margin: 0;
+  font-size: clamp(1.25rem, 4.5vw, 1.75rem);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .container {
   position: relative;
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
 }
 
 button {
   padding: 14px 26px;
-  font-size: 18px;
+  min-height: 44px;
+  min-width: 44px;
+  font-size: clamp(1rem, 3.5vw, 1.125rem);
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #yesBtn {
-  background: #ff4d6d;
-  color: white;
+  background: #e01947;
+  color: #fff;
+  position: relative;
+  z-index: 1;
 }
 
 #noBtn {
   background: #e0e0e0;
   position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 20rem;
+    margin: 0 auto;
+  }
+
+  .container button {
+    width: 100%;
+  }
+}
+
+.success-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  font-family: sans-serif;
+  background: white;
+}
+
+.success-screen h1 {
+  margin: 0 0 12px;
+  font-size: clamp(1.35rem, 5vw, 2rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.success-screen p {
+  margin: 0 0 16px;
+  font-size: clamp(1rem, 3.5vw, 1.125rem);
+  line-height: 1.4;
+  max-width: min(100%, 24rem);
+}
+
+.success-screen__gif {
+  display: block;
+  max-width: min(100%, 280px);
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
