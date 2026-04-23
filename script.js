@@ -42,13 +42,8 @@ function clampNoButtonTranslate(x, y, noScale) {
     y = ny;
   }
 
-yesBtn.addEventListener("click", () => {
-  document.body.innerHTML = `
-    <h1>Yayyyy, Hsuu 💖</h1>
-     <p>We are officially going on Burmese lunch date! 😍</p>
-     <img src="siuu.gif" alt="" class="success-screen__gif" decoding="async" />
-  `;
-});
+  noBtn.style.transform = `translate(${x}px, ${y}px) scale(${noScale})`;
+}
 
 function onNoEvade() {
   if (noBtn.style.display === "none") return;
@@ -87,8 +82,9 @@ noBtn.addEventListener("pointerdown", (e) => {
 yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
     <div class="success-screen">
-      <h1>Yayyyy 🥰💖</h1>
-      <p>We are officially going on a date, lets finalise a place and time as per you convenience! 😍</p>
+      <h1>Yayyyy, Hsuu 💖</h1>
+      <p>We are officially going on Burmese lunch date! 😍</p>
+      <img src="siuu.gif" alt="" class="success-screen__gif" decoding="async" />
     </div>
   `;
 });
