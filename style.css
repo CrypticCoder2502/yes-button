@@ -113,16 +113,8 @@ button {
 }
 
 .success-screen p {
-  margin: 0 0 16px;
+  margin: 0;
   font-size: clamp(1rem, 3.5vw, 1.125rem);
   line-height: 1.4;
   max-width: min(100%, 24rem);
-}
-
-.success-screen__gif {
-  display: block;
-  max-width: min(100%, 280px);
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
 }
